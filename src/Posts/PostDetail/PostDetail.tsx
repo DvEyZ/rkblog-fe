@@ -18,6 +18,7 @@ export const PostDetail = (props :{}) => {
                 'Authorization': `Bearer ${context.token}`
             }
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             return res.json();
         }).then((v) => {
@@ -25,7 +26,7 @@ export const PostDetail = (props :{}) => {
         }).catch((e) => {
             setError(e);
         })
-    }, [context.url, context.token, title]);
+    }, [context, title]);
 
     const handleDelete = () => {
         let c = window.confirm(`Do you really want to delete post "${title}"?`);
@@ -38,6 +39,7 @@ export const PostDetail = (props :{}) => {
                 'Authorization': `Bearer ${context.token}`
             },
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
         }).then(() => {
             setRedirect('..');
@@ -63,9 +65,9 @@ export const PostDetail = (props :{}) => {
                 </>
             }
             <hr/>
-            <div style={{whiteSpace:'pre-wrap'}}>
+            <article style={{whiteSpace:'pre-wrap'}}>
                 {post.content}
-            </div>
+            </article>
         </div>
     )
 }

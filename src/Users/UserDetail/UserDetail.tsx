@@ -18,6 +18,7 @@ export const UserDetail = (props :{}) => {
                 'Authorization': `Bearer ${context.token}`
             }
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             return res.json();
         }).then((v) => {
@@ -25,7 +26,7 @@ export const UserDetail = (props :{}) => {
         }).catch((e) => {
             setError(e);
         })
-    }, [context.url, context.token, name]);
+    }, [context, name]);
 
     const handleDelete = () => {
         let c = window.confirm(`Do you really want to delete user ${name}?`)
@@ -37,6 +38,7 @@ export const UserDetail = (props :{}) => {
                 'Authorization': `Bearer ${context.token}`
             }
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             setRedirect('..');
         }).catch((e) => {
@@ -58,8 +60,8 @@ export const UserDetail = (props :{}) => {
                     {context.user.name !== user.name && <>,<button className="action-button" onClick={() => {handleDelete()}}>delete</button></>})</>
             }
             <hr/>
-            <div>Name: {user.name}</div>
-            <div>Permissions: {user.permissions}</div>
+            <div><i>Username:</i> {user.name}</div>
+            <div><i>Permissions:</i> {user.permissions}</div>
         </div>
     )
 }

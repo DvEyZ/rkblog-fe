@@ -20,6 +20,7 @@ export const UserEditor = (props :{}) => {
                     'Authorization': `Bearer ${context.token}`
                 }
             }).then(async (res) => {
+                if(res.status === 401) context.dropToken();
                 if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
                 return res.json();
             }).then((res) => {
@@ -35,7 +36,7 @@ export const UserEditor = (props :{}) => {
                 permissions: 'User'
             })
         }
-    }, [context.url, context.token, name]);
+    }, [context, name]);
 
     const handleSubmit = (e :React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,6 +63,7 @@ export const UserEditor = (props :{}) => {
             },
             body: JSON.stringify(data)
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) alert(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             else setRedirect(`../${data.name!.toString()}`)
         }).catch((e) => {

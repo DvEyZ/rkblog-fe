@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ApiContext } from "../ApiContext";
+import { Link } from "react-router-dom";
 
 export const Dashboard = (props :{}) => {
     const context = useContext(ApiContext);
@@ -9,7 +10,8 @@ export const Dashboard = (props :{}) => {
             <h2>📊 Dashboard</h2>
             <hr/>
             <div>
-                <h3>Welcome!</h3>
+                <div><Link to='posts'>📃 Posts</Link></div>
+                <div><Link to='users'>👤 Users</Link></div>
             </div>
         </div>
     )

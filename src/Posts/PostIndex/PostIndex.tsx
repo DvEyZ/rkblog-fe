@@ -17,6 +17,7 @@ export const PostIndex = (props :{}) => {
                 'Authorization': `Bearer ${context.token}`
             }
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             return res.json();
         }).then((v) => {
@@ -24,7 +25,7 @@ export const PostIndex = (props :{}) => {
         }).catch((e) => {
             setError(e);
         })
-    }, [context.url, context.token])
+    }, [context])
 
     if(error) return <ErrorDisplay error={error}/>
     if(!posts) return <>Loading...</>

@@ -20,6 +20,7 @@ export const PostEditor = (props :{}) => {
                     'Authorization': `Bearer ${context.token}`
                 }
             }).then(async (res) => {
+                if(res.status === 401) context.dropToken();
                 if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
                 return res.json();
             }).then((v) => {
@@ -38,7 +39,7 @@ export const PostEditor = (props :{}) => {
                 content: ''
             });
         }
-    }, [context.url, context.token, title]);
+    }, [context, title]);
 
     const handleSubmit = (e :React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -64,6 +65,7 @@ export const PostEditor = (props :{}) => {
             },
             body: JSON.stringify(data)
         }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
             if(res.status >= 400) alert(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             else setRedirect(`../${data.title!.toString()}`)
         }).catch((e) => {

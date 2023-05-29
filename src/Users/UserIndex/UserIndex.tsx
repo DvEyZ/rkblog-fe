@@ -16,15 +16,16 @@ export const UserIndex = (props :{}) => {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
-        }).then((res) => {
-            if(res.status >= 400) throw new Error(`Server responded with status ${res.status}.`);
+        }).then(async (res) => {
+            if(res.status === 401) context.dropToken();
+            if(res.status >= 400) throw new Error(`Server responded with status ${res.status}: ${(await res.json()).message}`);
             return res.json()
         }).then((v) => {
             setUsers(v);
         }).catch((e) => {
             setError(e);
         })
-    }, [context.token, context.url])
+    }, [context, context.url])
 
     if(error) return <ErrorDisplay error={error}/>
     if(!users) return <>Loading...</>
