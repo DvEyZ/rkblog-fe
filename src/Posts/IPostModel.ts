@@ -1,4 +1,4 @@
-import { IUserModel } from "../Users/IUserModel"
+import { IUserBriefModel } from "../Users/IUserModel"
 
 export interface IPostUploadModel
 {
@@ -16,5 +16,5 @@ export interface IPostFullModel
 {
     title :string,
     content :string,
-    author :IUserModel
+    author :IUserBriefModel
 }

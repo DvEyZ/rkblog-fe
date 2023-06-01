@@ -41,15 +41,19 @@ input, textarea, select {
 }
 
 @media (min-width:1024px) {
-    textarea, article {
+    textarea, article, div.content {
         width: 40%;
     }
 }
 
 @media (max-width:1024px) {
-    textarea, article {
+    textarea, article, div.content {
         width: 100%;
     }
+}
+
+textarea {
+    vertical-align: top;
 }
 
 input[type=submit] {
@@ -59,4 +63,8 @@ input[type=submit] {
 input[type=submit]:hover {
     cursor: pointer;
     background-color: rgb(88, 76, 59)
+}
+
+div.content {
+    padding-left: 1rem;
 }

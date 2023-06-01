@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ApiContext } from "../../ApiContext";
 import { ErrorDisplay } from "../../Error/ErrorDisplay";
-import { IUserModel } from "../IUserModel";
+import { IUserFullModel } from "../IUserModel";
 
 export const UserDetail = (props :{}) => {
     const context = useContext(ApiContext)!;
     const { name } = useParams();
 
-    const [user, setUser] = useState<IUserModel>();
+    const [user, setUser] = useState<IUserFullModel>();
     const [error, setError] = useState<Error>();
     const [redirect, setRedirect] = useState<string | undefined>();
 
@@ -52,7 +52,7 @@ export const UserDetail = (props :{}) => {
 
     return(
         <div>
-            <h2>👤 {user.name}</h2>
+            <h2>👤 {user.name} {user.permissions === 'Admin' && <i>(Admin)</i>}</h2>
             <Link to='..'>&lt;&lt;&lt; Back</Link>
             {
                 context.user?.permissions === 'Admin' &&
@@ -60,8 +60,12 @@ export const UserDetail = (props :{}) => {
                     {context.user.name !== user.name && <>,<button className="action-button" onClick={() => {handleDelete()}}>delete</button></>})</>
             }
             <hr/>
-            <div><i>Username:</i> {user.name}</div>
-            <div><i>Permissions:</i> {user.permissions}</div>
+            <div>
+                <b>About:</b>
+                <div className="content" style={{whiteSpace:'pre-wrap', wordWrap:'break-word'}}>
+                    {user.bio}
+                </div>
+            </div>
         </div>
     )
 }

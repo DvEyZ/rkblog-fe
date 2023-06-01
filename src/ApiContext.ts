@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import { IUserModel } from "./Users/IUserModel";
+import { IUserBriefModel } from "./Users/IUserModel";
 
 interface IApiContext {
     token :string | undefined,
-    user :IUserModel | undefined,
+    user :IUserBriefModel | undefined,
     setToken(t :string) :any,
     dropToken() :any,
     url :string

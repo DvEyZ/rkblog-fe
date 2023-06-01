@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../../ApiContext";
-import { IUserModel } from "../IUserModel";
+import { IUserBriefModel } from "../IUserModel";
 import { UserBrief } from "./UserBrief";
 import { ErrorDisplay } from "../../Error/ErrorDisplay";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export const UserIndex = (props :{}) => {
     const context = useContext(ApiContext)!;
 
-    let [users, setUsers] = useState<IUserModel[]>();
+    let [users, setUsers] = useState<IUserBriefModel[]>();
     let [error, setError] = useState<Error>();
     
     useEffect(() => {

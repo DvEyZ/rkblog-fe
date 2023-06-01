@@ -54,7 +54,7 @@ export const PostDetail = (props :{}) => {
 
     return(
         <div>
-            <h2>📃 <Link to={`/users/${post.author.name}`}>@{post.author.name}</Link>/{post.title}</h2>
+            <h2>📃 {post.title} :<i>by <Link to={`/users/${post.author.name}`}><i>@{post.author.name}</i></Link></i></h2>
             <Link to='..'>&lt;&lt;&lt; Back</Link>
             {
                 ((post.author.name === context.user?.name) || (context.user?.permissions === 'Admin')) &&
@@ -65,7 +65,7 @@ export const PostDetail = (props :{}) => {
                 </>
             }
             <hr/>
-            <article style={{whiteSpace:'pre-wrap'}}>
+            <article style={{whiteSpace:'pre-wrap', wordWrap:'break-word'}}>
                 {post.content}
             </article>
         </div>

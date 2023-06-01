@@ -4,9 +4,9 @@ import * as jose from 'jose';
 
 import './App.css';
 import { Main } from './Main';
-import { IUserModel } from '../Users/IUserModel';
+import { IUserBriefModel } from '../Users/IUserModel';
 
-const userFromToken = (token :string | undefined) :IUserModel | undefined => {
+const userFromToken = (token :string | undefined) :IUserBriefModel | undefined => {
     if(!token) return undefined;
 
     let c = jose.decodeJwt(token);

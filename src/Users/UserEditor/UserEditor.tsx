@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ApiContext } from "../../ApiContext";
-import { IUserModel } from "../IUserModel";
+import { IUserFullModel } from "../IUserModel";
 import { ErrorDisplay } from "../../Error/ErrorDisplay";
 
 export const UserEditor = (props :{}) => {
     const { name } = useParams();
     const context = useContext(ApiContext)!;
 
-    const [user, setUser] = useState<IUserModel>();
+    const [user, setUser] = useState<IUserFullModel>();
     const [error, setError] = useState<Error>();
     const [redirect, setRedirect] = useState<string | undefined>();
 
@@ -33,7 +33,8 @@ export const UserEditor = (props :{}) => {
         {
             setUser({
                 name: '',
-                permissions: 'User'
+                permissions: 'User',
+                bio: ''
             })
         }
     }, [context, name]);
@@ -45,7 +46,8 @@ export const UserEditor = (props :{}) => {
         let data = {
             name: form.get('name')!.toString(),
             password: form.get('password')!.toString(),
-            permissions: form.get('permissions')!.toString()
+            permissions: form.get('permissions')!.toString(),
+            bio: form.get('bio')!.toString()
         };
 
         let reqParams = name ? {
@@ -95,6 +97,12 @@ export const UserEditor = (props :{}) => {
                         <option value="User">User</option>
                         <option value="Admin">Admin</option>
                     </select>
+                </div>
+                <hr/>
+                <div>
+                    <label htmlFor='bio'>About: </label>
+                    <textarea name="bio" id="bio" style={{resize:'none'}} defaultValue={user.bio} required>
+                    </textarea>
                 </div>
                 <input type="submit" value="Submit"/>
             </form>

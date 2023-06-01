@@ -8,7 +8,7 @@ export const PostBrief = (props :{
 }) => {
     return(
         <div>
-            <Link to={`/posts/${props.title}`}>{props.title}</Link> by <Link to={`/users/${props.author}`}>{props.author}</Link>
+            <Link to={`/posts/${props.title}`}>{props.title}</Link> :<Link to={`/users/${props.author}`}><i>{props.author}</i></Link>
             {
                 props.owned &&
                 <span> (<Link to={`/posts/${props.title}/edit`}>edit</Link>)</span>
